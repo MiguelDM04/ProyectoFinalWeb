@@ -1,2 +1,3 @@
 # ProyectoFinalWeb
-HTML + CSS + Bootstrap, Node.js + Express.js
+FrontEnd => HTML + CSS + Bootstrap
+BackEnd => Node.js + Express.js
