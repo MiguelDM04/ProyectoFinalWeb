@@ -1,0 +1,22 @@
+{
+  "name": "proyectofinalweb",
+  "version": "1.0.0",
+  "description": "FrontEnd => HTML + CSS + Bootstrap\r BackEnd => Node.js + Express.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiguelDM04/ProyectoFinalWeb.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MiguelDM04/ProyectoFinalWeb/issues"
+  },
+  "homepage": "https://github.com/MiguelDM04/ProyectoFinalWeb#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
