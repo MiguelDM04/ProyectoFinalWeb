@@ -19,6 +19,7 @@
     "hora": "17:00",
     "personas": 3,
     "mesa": 6,
-    "estado": "Confirmada"
+    "estado": "Cancelada",
+    "fechaCancelacion": "2026-10-02T13:01:53.317Z"
   }
 ]

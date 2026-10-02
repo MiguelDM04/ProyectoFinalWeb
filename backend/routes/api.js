@@ -39,16 +39,23 @@ const generarCodigoReserva = (reservasExistentes) => {
 //Lee las reservas
 router.get("/reservas", (req, res) =>{
     try {
-        const reservas = leerReservas()
+    const reservas = leerReservas()
+
+    const mostrarTodas = req.query.todas === "true"
+
+    const resultado = mostrarTodas
+        ? reservas
+        : reservas.filter(reserva => reserva.estado !== "Cancelada")
+
         res.status(200).json({
             exito: true,
-            total: reservas.length,
-            reservas: reservas
+            total: resultado.length,
+            reservas: resultado
         })
     } catch (error) {
         res.status(500).json({
             exito: false,
-            error: "Erorr obteniendo reservas"
+            error: "Error obteniendo reservas"
         })
     }
 })
@@ -120,6 +127,40 @@ router.post("/reservas", (req, res) =>{
         mensaje: "Reserva realizada correctamente",
         confirmacion: nuevaReserva
     })
+})
+
+router.delete("/reservas/:id", (req, res) => {
+    const { id } = req.params
+    const reservas = leerReservas()
+
+    //Buscar indice por ID o Codigo
+    const index = reservas.findIndex(r => r.id == id || r.codigo.toUpperCase() === id.toUpperCase())
+
+    if (index === -1){
+        return res.status(404).json({
+            exito: false,
+            error: "No se encontro ninguna reserva activa con el id/codigo"
+        })
+    }
+    
+    if (reservas[index].estado === "Cancelada"){
+        return res.status(400).json({
+            exito: false,
+            error: "La reserva ya esta cancelada"
+        })
+    }
+
+    reservas[index].estado = "Cancelada"
+    reservas[index].fechaCancelacion = new Date().toISOString()
+
+    guardarReservas(reservas)
+    
+    res.status(200).json({
+        exito: true,
+        mensaje: "La reserva ha sido cancelada correctamente",
+        reserva: reservas[index]
+    })
+    
 })
 
 module.exports = router //se exporta para que server.js lo pueda usar
