@@ -85,8 +85,8 @@ router.post("/reservas", (req, res) =>{
     }
 
     const reservas = leerReservas()
-
     let codigoFinal = codigo
+
     if (codigoFinal) {
         const codigoExiste = reservas.some(res => res.codigo == codigoFinal)
         if (codigoExiste) {
@@ -122,4 +122,4 @@ router.post("/reservas", (req, res) =>{
     })
 })
 
-module.exports = router
+module.exports = router //se exporta para que server.js lo pueda usar

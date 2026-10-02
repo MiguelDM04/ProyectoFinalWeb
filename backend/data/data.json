@@ -1,3 +1,24 @@
 [
-    
+  {
+    "id": 1790915659551,
+    "codigo": "RES-5591",
+    "nombre": "Carlos Mendoza",
+    "telefono": "912345678",
+    "fecha": "2026-10-20",
+    "hora": "15:00",
+    "personas": 4,
+    "mesa": 2,
+    "estado": "Confirmada"
+  },
+  {
+    "id": 1790915914651,
+    "codigo": "RES-6618",
+    "nombre": "Carlos Rodriguez",
+    "telefono": "912345378",
+    "fecha": "2026-10-20",
+    "hora": "17:00",
+    "personas": 3,
+    "mesa": 6,
+    "estado": "Confirmada"
+  }
 ]
