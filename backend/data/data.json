@@ -21,5 +21,16 @@
     "mesa": 6,
     "estado": "Cancelada",
     "fechaCancelacion": "2026-10-02T13:01:53.317Z"
+  },
+  {
+    "id": 1791127866611,
+    "codigo": "RES-1999",
+    "nombre": "Daniela Mendez Cortez",
+    "telefono": "987654321",
+    "fecha": "2026-10-10",
+    "hora": "18:00",
+    "personas": 3,
+    "mesa": 5,
+    "estado": "Confirmada"
   }
 ]

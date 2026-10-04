@@ -1,11 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="theme-color" content="#f5f0e7">
+    <title>La Mesa | Sistema de Reservas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/main.js" defer></script>
 </head>
 <body>
-    
+    <header class="site-header">
+        <div class="header-content">
+            <a class="brand" href="#inicio" aria-label="La Mesa, inicio">
+                <span class="brand-mark" aria-hidden="true">LM</span>
+                <span class="brand-name">La Mesa</span>
+            </a>
+            <div class="header-title" id="inicio">
+                <p class="eyebrow">Cocina para compartir</p>
+                <h1>Sistema de Reservas</h1>
+            </div>
+            <span class="header-detail" aria-hidden="true">Desde 1988</span>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+        <section class="booking-section" aria-labelledby="booking-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Tu próxima visita</p>
+                    <h2 id="booking-title">Nueva reserva</h2>
+                </div>
+                <p class="section-note">Completa los datos para guardar tu mesa.</p>
+            </div>
+
+            <form id="reservation-form" novalidate>
+                <div class="form-grid">
+                    <div class="field field-wide">
+                        <label for="nombre">Nombre completo</label>
+                        <input id="nombre" name="nombre" type="text" autocomplete="name" maxlength="80" required aria-describedby="nombre-error">
+                        <small class="field-error" id="nombre-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="telefono">Teléfono</label>
+                        <input id="telefono" name="telefono" type="tel" inputmode="numeric" autocomplete="tel" maxlength="15" required aria-describedby="telefono-error">
+                        <small class="field-error" id="telefono-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="fecha">Fecha</label>
+                        <input id="fecha" name="fecha" type="date" required aria-describedby="fecha-error">
+                        <small class="field-error" id="fecha-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="hora">Hora</label>
+                        <input id="hora" name="hora" type="time" required aria-describedby="hora-error">
+                        <small class="field-error" id="hora-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="personas">Personas</label>
+                        <input id="personas" name="personas" type="number" min="1" step="1" inputmode="numeric" required aria-describedby="personas-error">
+                        <small class="field-error" id="personas-error"></small>
+                    </div>
+
+                    <div class="field">
+                        <label for="mesa">Mesa</label>
+                        <input id="mesa" name="mesa" type="number" min="1" step="1" inputmode="numeric" required aria-describedby="mesa-error">
+                        <small class="field-error" id="mesa-error"></small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="button button-primary" id="submit-button" type="submit">Reservar</button>
+                    <button class="button button-secondary" id="clear-button" type="reset">Limpiar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="reservations-section" aria-labelledby="reservations-title">
+            <div class="section-heading reservations-heading">
+                <div>
+                    <p class="eyebrow">Agenda del restaurante</p>
+                    <h2 id="reservations-title">Reservas</h2>
+                </div>
+                <label class="toggle-label" for="show-all">
+                    <input id="show-all" type="checkbox">
+                    <span>Mostrar todas</span>
+                </label>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Personas</th>
+                            <th scope="col">Mesa</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col"><span class="visually-hidden">Acciones</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservations-list">
+                        <tr><td class="table-empty" colspan="9">Cargando reservas...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-caption" id="reservations-count" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>La Mesa <span aria-hidden="true">·</span> Buenos momentos, alrededor de la mesa.</p>
+    </footer>
 </body>
 </html>
