@@ -80,6 +80,7 @@ function validarFormulario() {
 		const input = form.elements[campo];
 		const errorElement = document.querySelector(`#${campo}-error`);
 		input.setAttribute("aria-invalid", String(Boolean(errores[campo])));
+		input.classList.toggle("is-invalid", Boolean(errores[campo]));
 		errorElement.textContent = errores[campo] || "";
 	});
 
@@ -116,6 +117,7 @@ async function crearReserva(event) {
 
 		mostrarMensaje(data.mensaje || "Reserva realizada correctamente.", "success");
 		form.reset();
+		limpiarFormulario();
 		await cargarReservas();
 	} catch (error) {
 		mostrarMensaje(error.message || "No fue posible conectar con el servidor.", "error");
@@ -160,34 +162,37 @@ function renderizarReservas(reservas) {
 	reservas.forEach((reserva) => {
 		const row = document.createElement("tr");
 		const values = [
-			reserva.codigo,
-			reserva.nombre,
-			reserva.telefono,
-			reserva.fecha,
-			reserva.hora,
-			reserva.personas,
-			reserva.mesa
+			["Código", reserva.codigo],
+			["Nombre", reserva.nombre],
+			["Teléfono", reserva.telefono],
+			["Fecha", reserva.fecha],
+			["Hora", reserva.hora],
+			["Personas", reserva.personas],
+			["Mesa", reserva.mesa]
 		];
 
-		values.forEach((value) => {
+		values.forEach(([label, value]) => {
 			const cell = document.createElement("td");
+			cell.dataset.label = label;
 			cell.textContent = value ?? "-";
 			row.append(cell);
 		});
 
 		const statusCell = document.createElement("td");
+		statusCell.dataset.label = "Estado";
 		const status = document.createElement("span");
-		status.className = `status${reserva.estado === "Cancelada" ? " status-cancelled" : ""}`;
+		status.className = `badge ${reserva.estado === "Cancelada" ? "text-bg-danger" : "text-bg-success"}`;
 		status.textContent = reserva.estado || "-";
 		statusCell.append(status);
 		row.append(statusCell);
 
 		const actionCell = document.createElement("td");
+		actionCell.dataset.label = "Acciones";
 		if (reserva.estado !== "Cancelada") {
 			const cancelButton = document.createElement("button");
 			cancelButton.type = "button";
-			cancelButton.className = "cancel-button";
-			cancelButton.textContent = "Cancelar";
+			cancelButton.className = "btn btn-danger btn-sm cancel-button";
+			cancelButton.innerHTML = '<i class="bi bi-x-circle me-1" aria-hidden="true"></i>Cancelar';
 			cancelButton.dataset.codigo = reserva.codigo;
 			cancelButton.addEventListener("click", () => cancelarReserva(reserva.codigo));
 			actionCell.append(cancelButton);
@@ -199,6 +204,7 @@ function renderizarReservas(reservas) {
 
 function crearFilaVacia(texto) {
 	const row = document.createElement("tr");
+	row.className = "empty-row";
 	const cell = document.createElement("td");
 	cell.className = "table-empty";
 	cell.colSpan = 9;
@@ -211,10 +217,9 @@ function crearFilaVacia(texto) {
 function mostrarMensaje(texto, tipo) {
 	clearTimeout(messageTimeout);
 	messageBox.textContent = texto;
-	messageBox.className = `message message-${tipo}`;
-	messageBox.hidden = false;
+	messageBox.className = `alert alert-${tipo === "success" ? "success" : "danger"}`;
 	messageTimeout = setTimeout(() => {
-		messageBox.hidden = true;
+		messageBox.classList.add("d-none");
 		messageBox.textContent = "";
 	}, 5000);
 }
@@ -222,6 +227,7 @@ function mostrarMensaje(texto, tipo) {
 function limpiarFormulario() {
 	fieldNames.forEach((campo) => {
 		form.elements[campo].removeAttribute("aria-invalid");
+		form.elements[campo].classList.remove("is-invalid");
 		document.querySelector(`#${campo}-error`).textContent = "";
 	});
 }
